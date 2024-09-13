@@ -5,7 +5,6 @@ book_title = input(str('Title of the book that you have read:'))
 book_pages = int(input('Number of pages:'))
 reading_time = int(input('Reading time in days:'))
 
-
 class Book:
     def __init__(self, book_title, book_pages, reading_time):
         self.book_title = book_title
