@@ -1,13 +1,11 @@
 import datetime
 import calendar
+import file
+import book_file
 
-class Book:
-    def __init__(self, title, pages, reading_time):
-        self.title = title
-        self.pages = pages
-        self.reading_time = reading_time
 
-books = []
+
+books = file.read_file()
 
 def menu():
     is_running = True
@@ -33,6 +31,7 @@ def menu():
 
         elif choice == '4':
             is_running = exit_app()
+        
 
         else:
             print('Invalid choice. Please try again.')        
@@ -61,8 +60,11 @@ def add_book():
             except ValueError:
                 print('Given value is not a number. Please try again')
 
-        my_book = Book(book_title, book_pages, reading_time)
+        my_book = book_file.Book(book_title, book_pages, reading_time)
         books.append(my_book)
+
+        file.write_file(books)
+
         print(f'Book {my_book.title} added!')
     
 def delete_book():
@@ -100,23 +102,6 @@ def show_statistics():
 
     pages_daily_total = 0
 
-    # if len(books) > 0:
-    #     for book in books:
-    #         print(f'Your statistics for {book.title} book:') 
-    #         pages_daily = calculate_pages_daily(book.pages, book.reading_time)
-    #         print(f'Currently you are reading on average {pages_daily} pages daily.')
-
-    #         pages_yearly = calculate_pages_yearly(pages_daily)
-    #         print(f'By the end of the year with this rate you will read {pages_yearly} pages.')
-
-    #         pages_daily_total += pages_daily 
-            
-    #     print(f'Sum of combined average pages daily: {pages_daily_total / len(books)}')
-    # else:
-    #     print('No books to show statistics')
-    
-#-----------------------------------
-
     if len(books) <= 0:
         print('No books to show statistics')
         return
@@ -133,12 +118,6 @@ def show_statistics():
         pages_daily_total += pages_daily 
         print(f'Sum of combined average pages daily: {pages_daily_total / len(books)}')
         
-
-
-
-
-
-
 def exit_app():
     print('Exiting the APP.')
     return False
