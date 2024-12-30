@@ -39,7 +39,7 @@ def menu():
 def add_book():
     print()
     try:
-        n_books = int(input('How many books would you like to add;'))
+        n_books = int(input('How many books would you like to add:'))
     except ValueError:
         print('Given value is not a number. Please try again.')
         return
@@ -58,7 +58,7 @@ def add_book():
                 reading_time = int(input('Reading time in days:'))
                 break
             except ValueError:
-                print('Given value is not a number. Please try again')
+                print('Given value is not a number. Please try again.')
 
         my_book = book_file.Book(book_title, book_pages, reading_time)
         books.append(my_book)
@@ -69,7 +69,7 @@ def add_book():
     
 def delete_book():
     if books == []:
-        print('Lista książek jest pusta. Nie możesz usunąć żadnej książki.')
+        print('The list is empty. Yo cannot delete anything.')
         return
     
     for index, book in enumerate(books):
@@ -78,16 +78,17 @@ def delete_book():
     try:
         book_index = int(input('Enter the number of the book you want to delete:'))
     except ValueError:
-        print('Podana wartosć nie jest liczbą. Spróbój ponownie')
-    
+        print('Podana wartosć nie jest liczbą. Spróbój ponownie.')
+        return
+
     if 0 < book_index <= len(books):
         books.pop(book_index - 1)
         print('The book is removed!')
     elif len(book) < book_index:
-            print('Nie ma takiego numeru książki')
+            print('This number don''t exist.')
     else:
         if book_index == 0:
-            print('Brak książek do usunięcia.') 
+            print('No books to delete.') 
 
     file.write_file(books)
     
