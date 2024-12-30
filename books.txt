@@ -1,2 +1,1 @@
-dupa;123;1
-kupa;500;5
+sdfsdfsf;4;4

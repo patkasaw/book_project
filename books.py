@@ -89,6 +89,9 @@ def delete_book():
         if book_index == 0:
             print('Brak książek do usunięcia.') 
 
+    file.write_file(books)
+    
+
 def show_statistics():
     def calculate_pages_daily(book_pages, reading_time):
         pages_daily = book_pages / reading_time
