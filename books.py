@@ -14,22 +14,30 @@ def menu():
         print()
         print('💫Menu💫')
         print('1. Add Book')
-        print('2. Delete Book')
-        print('3. Show books statistics')
-        print('4. Exit')
+        print('2. Show all books')
+        print('3. Update book')
+        print('4. Delete Book')
+        print('5. Show books statistics')
+        print('6. Exit')
 
         choice = input('Enter your choice:')
 
         if choice == '1':
             add_book()
-            
-        elif choice == '2':
-            delete_book()
 
+        elif choice == '2':
+            show_books()
+            
         elif choice == '3':
-            show_statistics()
+            update_book()
 
         elif choice == '4':
+            delete_book()
+
+        elif choice == '5':
+            show_statistics()
+
+        elif choice == '6':
             is_running = exit_app()
         
 
@@ -39,7 +47,7 @@ def menu():
 def add_book():
     print()
     try:
-        n_books = int(input('How many books would you like to add;'))
+        n_books = int(input('How many books would you like to add:'))
     except ValueError:
         print('Given value is not a number. Please try again.')
         return
@@ -58,7 +66,7 @@ def add_book():
                 reading_time = int(input('Reading time in days:'))
                 break
             except ValueError:
-                print('Given value is not a number. Please try again')
+                print('Given value is not a number. Please try again.')
 
         my_book = book_file.Book(book_title, book_pages, reading_time)
         books.append(my_book)
@@ -66,28 +74,79 @@ def add_book():
         file.write_file(books)
 
         print(f'Book {my_book.title} added!')
-    
-def delete_book():
+
+def show_books():
     if books == []:
-        print('Lista książek jest pusta. Nie możesz usunąć żadnej książki.')
+        print('The list is empty.')
         return
     
     for index, book in enumerate(books):
         print(f'{index + 1}. {book.title}')
+
+def update_book():
+    show_books()
+
+    try:
+        book_index = int(input('Enter the number of the book you want to update:'))
+    except ValueError:
+        print('Podana wartosć nie jest liczbą. Spróbój ponownie.')
+        return
+    
+    if book_index <= 0 or len(books) < book_index:
+        print('This number don''t exist.')
+        return
+    elif book_index == 0:
+        print('No books to update.') 
+        return
+    
+    if 0 < book_index <= len(books):
+        book_to_update = books[book_index - 1]
+        print(f'1.{book_to_update.title}')
+        print(f'2.{book_to_update.pages}')
+        print(f'3.{book_to_update.reading_time}')
+        update_choice = int(input('Enter your choice:'))
+        if update_choice == 1:
+            new_book_title = input(str('New book title:'))
+            book_to_update.title = new_book_title
+            print('Title has been changed')
+
+        if update_choice == 2:
+            try:
+                new_book_pages = int(input('New book pages:'))
+            except ValueError:
+                print('Given value is not a number. Please try again.')
+                return
+            book_to_update.pages = new_book_pages
+            print('Pages has been updated')
+        
+        if update_choice == 3:
+            try:
+                new_book_reading_time = int(input('New book reading time:'))
+            except ValueError:
+                print('Given value is not a number. Please try again.')
+                return
+            book_to_update.reading_time = new_book_reading_time
+            print('Reading time has been updated')
+
+    file.write_file(books)
+
+def delete_book():
+    show_books()
     
     try:
         book_index = int(input('Enter the number of the book you want to delete:'))
     except ValueError:
-        print('Podana wartosć nie jest liczbą. Spróbój ponownie')
-    
+        print('Podana wartosć nie jest liczbą. Spróbój ponownie.')
+        return
+
     if 0 < book_index <= len(books):
         books.pop(book_index - 1)
         print('The book is removed!')
-    elif len(book) < book_index:
-            print('Nie ma takiego numeru książki')
+    elif book_index <= 0 or len(books) < book_index:
+            print('This number don''t exist.')
     else:
         if book_index == 0:
-            print('Brak książek do usunięcia.') 
+            print('No books to delete.') 
 
     file.write_file(books)
     
