@@ -11,7 +11,7 @@ def menu():
         print('3. Update book')
         print('4. Delete Book')
         print('5. Show books statistics')
-        print('6. Exit')
+        print('6. Exitt')
 
         choice = input('Enter your choice:')
 
