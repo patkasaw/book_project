@@ -44,22 +44,26 @@ def show_books():
     for index, book in enumerate(books):
         print(f'{index + 1}. {book.title}')
 
-def update_book():
-    show_books()
-
+def get_book_index(message):
     try:
-        book_index = int(input('Enter the number of the book you want to update:'))
+        book_index = int(input(message))
     except ValueError:
         print('Given value is not a number. Please try again.')
         return
     
-    if book_index <= 0 or len(books) < book_index:
+    if len(books) == 0:
+        print('No books in database.') 
+        return
+    elif book_index <= 0 or len(books) < book_index:
         print('This number don''t exist.')
         return
-    elif book_index == 0:
-        print('No books to update.') 
-        return
     
+    return book_index  
+
+def update_book():
+    show_books()
+    book_index = get_book_index('Enter the number of the book you want to update:')
+
     if 0 < book_index <= len(books):
         book_to_update = books[book_index - 1]
         print(f'1.Book title:{book_to_update.title}')
@@ -93,21 +97,10 @@ def update_book():
 
 def delete_book():
     show_books()
-    
-    try:
-        book_index = int(input('Enter the number of the book you want to delete:'))
-    except ValueError:
-        print('Given value is not a number. Please try again.')
-        return
+    book_index = get_book_index('Enter the number of the book you want to delete:')
 
-    if 0 < book_index <= len(books):
-        books.pop(book_index - 1)
-        print('The book is removed!')
-    elif book_index <= 0 or len(books) < book_index:
-            print('This number don''t exist.')
-    else:
-        if book_index == 0:
-            print('No books to delete.') 
+    books.pop(book_index - 1)
+    print('The book is removed!')
 
     file.write_file(books)
     
