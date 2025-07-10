@@ -28,15 +28,16 @@ Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-book = Book(1, 'Belladonna', 'Adalyn Grace', '400', 15)
+book = Book(1, 'Belladonna', 'Adalyn Grace', 400, 15)
 session.add(book)
 session.commit()
 
-b1 = Book(2, 'Diune', 'Frank Herbert', '600', 40)
-b2 = Book(3, 'Normal People', 'Sally Rooney', '250', 35)
-b3 = Book(4, 'Bride', 'Ali Hazelwood', '390', 22)
+b1 = Book(2, 'Diune', 'Frank Herbert', 600, 40)
+b2 = Book(3, 'Normal People', 'Sally Rooney', 250, 35)
+b3 = Book(4, 'Bride', 'Ali Hazelwood', 390, 22)
 
 session.add(b1)
 session.add(b2)
 session.add(b3)
 session.commit()
+
