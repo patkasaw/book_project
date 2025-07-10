@@ -1,4 +1,10 @@
+import datetime
+import calendar
+import file
+import book_file
 import menu_functions
+
+books = file.read_file()
 
 def menu():
     is_running = True
@@ -11,7 +17,7 @@ def menu():
         print('3. Update book')
         print('4. Delete Book')
         print('5. Show books statistics')
-        print('6. Exitt')
+        print('6. Exit')
 
         choice = input('Enter your choice:')
 
